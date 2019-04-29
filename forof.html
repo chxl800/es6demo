@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>forof</title>
+  <script>
+    ;(function () {
+      var arr = [1, 2, 3, 4, 5];
+      for (let i = 0; i < arr.length; i++) {
+        //...
+      }
+      var arr = [1, 2, 3, 4, 5];
+      arr.forEach(function(value, index){
+        //...
+      });
+      var arr = [1, 2, 3, 4, 5];
+      for (let i in arr) {
+        //...
+      }
+    })();
+
+    ;(function () {
+      // 写法比for循环简洁很多；
+      // 可以用break来终止整个循环，或者continute来跳出当前循环，继续后面的循环；结合keys()
+      // 获取到循环的索引，并且是数字类型，而不是字符串类型。
+
+      var arr = [1, 2, 3, 4, 5];
+      for (let value of arr) {
+        console.log(value);
+      }
+      //打印结果：依次输出：1 2 3 4 5
+    })();
+
+
+  </scrit>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>iterator</title>
+  <script>
+    ;(function () {
+      //数组：一个可遍历对象
+      let arr = ['a', 'b', 'c'];
+      //调用数组的Symbol.iterator()方法
+      let iter = arr[Symbol.iterator]();
+      console.log(iter.next());
+      //结果：{value: "a", done: false}
+      console.log(iter.next());
+      //结果：{value: "b", done: false}
+      console.log(iter.next());
+      //结果：{value: "c", done: false}
+      console.log(iter.next());
+      //结果：{value: undefined, done: true}
+    })();
+
+    ;(function () {
+      //我们定义了一个Object对象，同时给它添加了[Symbol.iterator]()方法，
+      // 并在[Symbol.iterator]()方法实现了next( )方法，next( )方法返回的对象包含了value属性和done属性。
+
+      //以创建一个可遍历的对象，并且自定义它的遍历行为。或者说可以通过添加[Symbol.iterator]()方法，把一个不可遍历的Object对象，变成可遍历的对象。
+      //定义一个的Object对象
+      let obj = {
+        0                 : "我是0",
+        1                 : "我是1",
+        2                 : "我是2",
+        length            : 3,
+        //添加[Symbol.iterator]方法
+        [Symbol.iterator] : function(){
+          let _this = this;
+          let index = 0;
+          return {
+            next : () => {
+              let value = _this[index];
+              let done = (index >= _this.length);
+              index++;
+              return {value, done}
+            }
+          }
+        }
+      };
+      //咱们来for...of一下
+      for (let v of obj) {
+        console.log(v);
+      }
+      //结果："我是0"
+      //      "我是1"
+      //      "我是2"
+    })();
+  </script>
+</head>
+<body>
+
+</body>
+</html>

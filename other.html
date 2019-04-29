@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>other</title>
+  <script>
+    ;(function () {
+      //求和函数，得到的结果赋值到result
+      function sum(result, ...values){
+        //打印values看看是什么
+        console.log(values);
+        //结果：[1,2,3,4]
+        //进行求和
+        values.forEach(function(v, i){
+          //求和得到的结果存到result
+          result += v;
+        });
+        //打印出求和的结果看看
+        console.log(result);
+        //结果：10
+      }
+      //存储求和结果的变量res
+      var res = 0;
+      //调用sum函数
+      sum(res, 1, 2, 3, 4);
+
+      console.log(res);
+    })();
+
+    ;(function () {
+      function sum(a, b,c){
+        return a + b+c;
+      }
+      let arr = [2,6, 3];
+      //用扩展运算法将数组[2,3]转换成2,3
+      console.log(sum(...arr));
+      //结果：5
+    })();
+
+    ;(function () {
+      //传统写法
+      var sum = function(a){
+        return a;
+      };
+      console.log(sum('ddd'));
+
+      //箭头函数写法
+      var sum = a => a;
+      console.log(sum("ttt"));
+
+      //箭头函数写法
+      var sum = (a, b) => {return a + b}
+      console.log(sum(2,43));
+    })();
+
+    ;(function () {
+      //传统的写法
+      var sum = 0;
+      [1, 2, 3, 4].forEach(function(v){
+        sum += v;
+      });
+      console.log(sum);
+      //箭头函数的写法
+      var sum = 0;
+      [1, 2, 3, 4].forEach(v => sum += v);
+      console.log(sum);
+    })();
+
+    ;(function () {
+      // 当定义obj的show()
+      // 方法的时候，我们在箭头函数编写this.x，此时的this是指的obj，所以this.x指的是obj.x。而在show()
+      // 被调用的时候，this依然指向的是被定义时候所指向的对象，也就是obj对象，故打印出：100。
+      //定义一个对象
+      var obj = {
+        x : 100,//属性x
+        show(){
+          //延迟500毫秒，输出x的值
+          setTimeout(
+              //不同处：箭头函数
+              () => { console.log(this.x)},
+              500
+          );
+        }
+      };
+      obj.show();//打印结果：100
+    })();
+
+
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>

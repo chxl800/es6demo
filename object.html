@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>object</title>
+  <script>
+    ;(function () {
+      let person = {
+        "name" : "张三",
+        "say"  : function(){
+          alert("你好吗？");
+        }
+      }
+      console.log(person);
+    })();
+    ;(function () {
+      var name = "Zhangsan";
+      var age = 12;
+      //传统的属性写法
+      var person = {
+        "name" : name,
+        "age"  : age
+      };
+      console.log(person);
+      //结果：{name: "Zhangsan", age: 12}
+      //ES6的属性写法
+      var person = {name, age};
+      console.log(person);
+      //结果：{name: "Zhangsan", age: 12}
+    })();
+
+    ;(function () {
+      //传统的表示法
+      var person1 = {
+        say : function(){
+          console.log('这是传统的表示法');
+        }
+      };
+      //ES6的表示法
+      var person2 = {
+        say(){
+          console.log('这是ES6的表示法');
+        }
+      };
+      person1.say();
+      person2.say();
+    })();
+
+    ;(function () {
+      var f = "first";
+      var n = "Name";
+      var s = "say";
+      var h = "Hello";
+      var person = {
+        [f + n] : "Zhang",
+        [s + h](){
+          return "你好吗？";
+        }
+      };
+      console.log(person.firstName);
+      //结果：Zhang
+      console.log(person.sayHello());
+      //结果：你好吗？
+    })();
+
+    ;(function () {
+      //抽象相等用“==”表示，严格相等用|“===”表示，进行严格相等判断的时候，首先要求类型是一样的，否则会直接返回false。
+      var str = '12';
+      var num = 12;
+      //抽象相等
+      str == num;
+      //结果：true
+      //严格相等
+      str === num;
+      //结果：false
+    })();
+
+    ;(function () {
+      //Object.is( )函数 函数的作用：比较两个值是否严格相等，或者说全等。
+      var str = '12';
+      var num = 12;
+      var num2 = 12;
+      Object.is(str, num);
+      //结果：false
+      Object.is(num2, num);
+      //结果：true
+    })();
+
+    ;(function () {
+      //Object.assign()函数 函数作用：将源对象的属性赋值到目标对象上
+      //这个充当目标对象
+      let target = {"a" : 1};
+      //这个充当源对象
+      let origin = {"b" : 2, "c" : 3};
+      Object.assign(target, origin);
+      //打印target对象出来看一下
+      console.log(target);
+      //结果 {a: 1, b: 2, c: 3}
+    })();
+
+    ;(function () {
+      //Object.getPrototypeOf( )函数  函数作用：获取一个对象的prototype属性
+
+      //自定义一个Person类（函数）
+      function Person(){
+      }
+      //函数都有一个预属性prototype对象------------------------------------>
+      Person.prototype = {
+        //给prototype对象添加一个say方法
+        say(){
+          console.log('hello');
+        }
+      };
+      //实例化Person对象，赋值给变量allen
+      let allen = new Person();
+      //调用类的say方法
+      allen.say();
+      //结果：打印出hello
+      //获取allen对象的prototype属性
+      console.log(Object.getPrototypeOf(allen));
+      //结果：打印{say:function(){.....}}
+    })();
+
+    ;(function () {
+      //Object.setPrototypeOf()函数 函数作用：设置一个对象的prototype属性。
+
+      //自定义一个Person类（函数）
+      function Person(){
+      }
+      //函数都有一个预属性prototype对象
+      Person.prototype = {
+        //给prototype对象添加一个say方法
+        say(){
+          console.log('hello');
+        }
+      };
+      //实例化Person对象，赋值给变量allen
+      let allen = new Person();
+      //调用类的say方法
+      allen.say();
+      //结果：打印出hello
+      //使用Object.setPrototypeOf
+      Object.setPrototypeOf(
+          allen,
+          {
+            say(){console.log('hi')}
+          });
+      //再次调用类的say方法
+      allen.say();
+      //结果：打印出hi
+    })();
+  </script>
+</head>
+<body>
+
+</body>
+</html>

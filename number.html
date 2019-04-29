@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>number</title>
+  <script>
+    function isNanDemo(){
+      //  Number.isNaN函数：用于判断传入的是否是非数值，注意：是判断非数值，而不是判断数值，IsNaN的全称是： is not a number。
+      //传统用法：
+      console.log(isNaN('abc')); //结果：true
+      console.log(isNaN(12345)); //结果：false
+
+      console.log(Number.isNaN('abc')); //结果：false
+      console.log(Number.isNaN(123)); //结果：false
+
+      //Number.parseInt函数 解析一个字符串，返回一个整数
+      //传统用法：
+      console.log(parseInt('12.3abc'));
+      //结果：返回数值12
+      //ES6用法：
+      console.log(Number.parseInt('12.3abc'));
+
+      // Number.isInteger函数：用来判断是否是整数。
+      //结果：返回数值12
+      console.log(Number.isInteger(3.2));
+      //结果：false
+      console.log(Number.isInteger(3));
+      //结果：true
+    }
+    isNanDemo();
+
+    ;(function () {
+      Math.random();
+      //结果：随机数0.8897368770341108
+    })();
+
+    ;(function () {
+      //Math.trunc函数：用于去除一个数的小数部分，返回整数部分。
+      Math.trunc(3);
+      //结果：3
+      Math.trunc(3.1);
+      //结果：3
+    })();
+    ;(function () {
+      //Math.sign函数：用来判断一个数到底是正数、负数、还是零。
+      Math.sign(3);
+      //结果：1
+      Math.sign(-3);
+      //结果：-1
+      Math.sign(0);
+      //结果：0
+      Math.sign('abc');
+      //结果：NaN
+    })();
+  </script>
+</head>
+<body>
+
+</body>
+</html>

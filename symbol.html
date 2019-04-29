@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Symbol</title>
+  <script>
+    ;(function () {
+      //定义一个symbol类型的变量  ：解决对象的属性名冲突
+      let sm = Symbol();
+      console.log(sm);
+      //打印结果：Symbol()
+      console.log(typeof sm);
+      //打印结果：symbol
+    })();
+
+    ;(function () {
+      let sm1 = Symbol();
+      let sm2 = Symbol();
+      sm1 === sm2 //结果：false
+      console.log(sm1);//结果：Symbol()
+      console.log(sm2);//结果：Symbol()
+    })();
+
+    ;(function () {
+      let sm1 = Symbol('sm1');
+      let sm2 = Symbol('sm2');
+      console.log(sm1);
+      //结果：Symbol(sm1)
+      console.log(sm2);
+      //结果：Symbol(sm2)
+    })();
+
+    ;(function () {
+      let sm1 = Symbol('sm');
+      let sm2 = Symbol('sm');
+      sm1 === sm2 //结果：false
+    })();
+
+    ;(function () {
+      let name = Symbol();
+      let person = {
+        [name] : "张三"
+      };
+      console.log(person[name]);
+      //结果：张三
+      console.log(person.name);
+      //结果：undefined
+    })();
+
+    ;(function () {
+      let name = Symbol();
+      let person = {};
+      person.name = "张三";
+      console.log(person[name]);   //结果：undefined
+      console.log(person['name']); //结果：张三
+      console.log(person.name);    //结果：张三
+    })();
+
+    ;(function () {
+      //定义一个symbol类型的变量name
+      let name = Symbol();
+      //定义一个含有两种类型属性的对象
+      let person = {
+        [name] : "张三",  //symbol类型
+        "age"  : 12        //string类型
+      };
+      console.log(Object.keys(person));//结果：["age"]
+      for (let key in person) {
+        console.log(key);
+      }
+      //打印结果：age
+    })();
+
+    ;(function () {
+      //定义两个symbol类型的变量name，age
+      let name = Symbol("name");
+      let age = Symbol("age");
+      let person = {
+        [name] : "张三", //symbol类型
+        [age]  : 12       //symbol类型
+      };
+      console.log(Object.getOwnPropertySymbols(person));
+      //结果：[Symbol(name), Symbol(age)]
+    })();
+
+    ;(function () {
+      //Symbol.for( )函数   函数作用：根据参数名，去全局环境中搜索是否有以该参数为名的symbol值，
+      // 有就返回它，没有就以该参数名来创建一个新的symbol值。
+      let n1 = Symbol.for('name');
+      let n2 = Symbol.for('name');
+      console.log(n1 === n2);
+      //结果：true
+    })();
+
+    ;(function () {
+      // 两者在创建symbol值的时候有什么不同吗？它们的区别是：Symbol.for( )创建的symbol值会被登记在全局环境中，
+      // 供以后用Symbol.for( )来搜索，而Symbol( )创建的变量就没有这样的效果了。
+      let n1 = Symbol('name');
+      let n2 = Symbol.for('name');
+      console.log(n1 === n2);
+      //结果：false
+    })();
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>

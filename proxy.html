@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Proxy</title>
+  <script>
+    ;(function () {
+      //定义一个对象person
+      var person = {"name" : "张三"};
+      //创建一个代理对象pro，代理person的读写操作
+      var pro = new Proxy(person, {
+        get : function(target, property){
+          return "李四"
+        }
+      });
+      console.log(pro.name);//李四
+      console.log(person.name);
+    })();
+
+    ;(function () {
+      //定义一个对象，含有RMB和dollar属性值
+      var bankAccount = {"RMB" : 1000, "dollar" : 0};
+      //创建一个Proxy代理实例
+      var banker = new Proxy(bankAccount, {
+        //编写get处理程序
+        get : function(target, property){
+          //判断余额是否大于0
+          if (target[property] > 0) {
+            //有余额，就返回余额值
+            return target[property];
+          } else {
+            //没钱了
+            return "余额不足";
+          }
+        },
+        //编写set处理程序
+        set : function(target, property, value){
+          //存入的数额必须是一个数字类型
+          if (!Number.isInteger(value)) {
+            return "请设置正确的数值";
+          }
+          //修改属性的值
+          target[property] = value;
+        }
+      });
+      console.log(banker.RMB);
+      //结果：1000
+      console.log(banker.dollar);
+      //结果：余额不足
+      //修改dollar属性的值，值是字符串类型
+      banker.dollar = "五百";
+      console.log(banker.dollar);
+      //结果：余额不足
+      //修改dollar属性的值，值是数字类型
+      banker.dollar = 500;
+      console.log(banker.dollar);
+      //结果：500
+    })();
+
+    ;(function () {
+      //  ownKeys拦截操作，拦截过滤Object.ownKeys()对对象的属性遍历。
+
+      //定义一个对象person，有三个属性
+      let person = {"name" : "老王", "age" : 40, "height" : 1.8};
+      //创建一个代理对象
+      let proxy = new Proxy(person, {
+        //ownKeys过滤对对象的属性遍历
+        ownKeys : function(target){
+          return ["name", "age"]
+        }
+      });
+      console.log(Object.keys(person));
+      //结果：["name", "age","height"]
+      console.log(Object.keys(proxy));
+      //结果：["name", "age"]
+    })();
+
+    ;(function () {
+      // has( )拦截操作：拦截key in object的操作，结果会返回一个布尔值。
+      var person = {
+        "name" : "张三",
+        "age"  : 20
+      };
+      var proxy = new Proxy(person, {
+        has : function(target, property){
+          if (target[property] === undefined) {
+            return false;
+          } else {
+            return true;
+          }
+        }
+      });
+      console.log("name" in proxy);//结果：true
+      console.log("height" in proxy);//结果：false
+    })();
+
+    ;(function () {
+      //除了对象类型的变量可以被代理，函数也可以被代理。如果被代理的变量是一个函数，那么还会支持一个拦截程序：apply调用。
+      //创建一个函数fn
+      let fn = function(){
+        alert('我是前端君');
+      };
+      //创建一个代理实例，代理函数fn
+      let proxy = new Proxy(fn, {
+        apply : function(){
+          alert('我是隔壁老王');
+        }
+      });
+      proxy();//结果：我是隔壁老王
+    })();
+
+    ;(function () {
+      //定义一个对象
+      let person = {"name" : "张三"};
+      //定义一个代理处理程序
+      let handle = {
+        get : function(target, prop){
+          return "李四";
+        }
+      };
+      //使用Proxy.revocable()进行代理
+      let object = Proxy.revocable(person, handle);
+      console.log(object.proxy.name);//结果：李四
+      //调用返回对象object的revoke方法，取消代理
+      object.revoke();
+      //console.log(object.proxy.name);//报错，代理被取消
+    })();
+  </script>
+</head>
+<body>
+
+</body>
+</html>

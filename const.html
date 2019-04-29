@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>const</title>
+  <script>
+    function constDemo (){
+      var student1 = {"name" : "张三"};
+      var student2 = {"name" : "张三"};
+      student2.name = "李四";
+      console.log(student1);
+      //结果：输出 {name: "李四"}
+      console.log(student2);
+    }
+    constDemo();
+
+  </script>
+</head>
+<body>
+<div><a></a></div>
+</body>
+</html>
